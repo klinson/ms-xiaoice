@@ -1,0 +1,22 @@
+{
+    "name": "klinson/ms-xiaoice",
+    "description": "基于微软小冰实现接口，微软小冰使用深度神经网络和大数据训练进行对图片的科学鉴定，如评分、计算年龄",
+    "keywords": ["msxiaobing", "微软", "Microsoft", "小冰", "xiaobing", "xiaoice", "klinson", "大数据", "深度神经网络", "big data", "Intel MKL-DNN"],
+    "homepage": "https://github.com/klinson/aws-s3-minio",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "klinson",
+            "email": "klinson@163.com",
+            "homepage": "http://www.klinson.com/"
+        }
+    ],
+    "require": {
+        "php": ">=5.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Minio\\": "src/"
+        }
+    }
+}

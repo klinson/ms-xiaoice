@@ -57,7 +57,7 @@ class XiaoIce
     protected function __construct()
     {
         // 建立一个零时文件
-        $this->cookieFile = tempnam('./temp', 'cookie');
+        $this->cookieFile = tempnam('./', 'cookie');
     }
     public static function getInstance()
     {

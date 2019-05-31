@@ -139,7 +139,7 @@ class XiaoIce
     public function __call($name, $arguments)
     {
         if (key_exists($name, $this->urls)) {
-            return $this->handle($name, $arguments[0]);
+            return $this->handle($name, $arguments[0], ($arguments[1] ?? false));
         } else {
             throw new BadMethodCallException('Call to undefined method ' . __CLASS__ . '::' . $name . '()');
         }

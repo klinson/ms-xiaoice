@@ -27,6 +27,7 @@ function saveProcessedImages($url, $saveName)
 $img = 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1557915647241&di=4248f55beae825b50491aca53512bd2a&imgtype=0&src=http%3A%2F%2Fimg.tukexw.com%2Fimg%2F8e675ce41005d9fc.jpg';
 $res = XiaoIce::getInstance()->appraiseScore($img);
 var_dump($res);
+exit;
 saveProcessedImages($res['image_url'], 'img1-1.jpeg');
 $path = getOriginImages('img1.jpg');
 $res = XiaoIce::getInstance()->appraiseScore($path);

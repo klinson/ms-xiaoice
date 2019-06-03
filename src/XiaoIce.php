@@ -241,7 +241,6 @@ class XiaoIce
         curl_setopt($ch, CURLOPT_COOKIEFILE, $this->cookieFile);
 
         $res = curl_exec($ch);
-        var_dump($res);
         curl_close($ch);
 
         return $res;

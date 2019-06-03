@@ -67,6 +67,10 @@ class XiaoIce
 
         return self::$instance;
     }
+    public function __destruct()
+    {
+        file_exists($this->cookieFile) && unlink($this->cookieFile);
+    }
 
     /**
      * 验证服务主页是否正常可访问
@@ -78,7 +82,7 @@ class XiaoIce
         $url = $this->getUrl($api, 0);
         $ret = $this->curl($url);
         if (empty($ret)) {
-            $this->setError('访问颜值测试主页失败');
+            return $this->setError('error to call page', 1);
         }
     }
 
@@ -96,8 +100,8 @@ class XiaoIce
         $this->check($api);
 
         $ret = $this->uploadImage($image, $isBase64);
-        if (!isset($ret->Host) || !isset($ret->Host)) {
-            return $this->setError('上传图片到微软服务器错误');
+        if (!isset($ret->Host) || !isset($ret->Url)) {
+            return $this->setError('error to upload image', 2);
         }
 
         $data = [
@@ -109,13 +113,13 @@ class XiaoIce
         $url = $this->getUrl($api, 1);
         $rsp = $this->curl($url, $data, 'POST', $this->getCurlHeaders($api));
         if (empty($rsp)) {
-            return $this->setError('测试失败');
+            return $this->setError('error to handle', 3);
         }
 
         $response = json_decode($rsp, true);
 
         if (!isset($response['content'])) {
-            return $this->setError('返回的数据异常');
+            return $this->setError('callback content unknown', 4);
         }
 
         if (isset($response['content']['metadata']['score']) && $response['content']['metadata']['score'] > 0) {
@@ -151,10 +155,10 @@ class XiaoIce
      * @author klinson <klinson@163.com>
      * @throws Exception
      */
-    private function setError($message = '')
+    private function setError($message = '', $code = 0)
     {
         $this->error = $message;
-        throw new \Exception($message);
+        throw new \Exception($message, $code);
     }
 
     /**
@@ -237,6 +241,7 @@ class XiaoIce
         curl_setopt($ch, CURLOPT_COOKIEFILE, $this->cookieFile);
 
         $res = curl_exec($ch);
+        var_dump($res);
         curl_close($ch);
 
         return $res;
